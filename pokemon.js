@@ -121,13 +121,51 @@ class Pokeball{
     constructor(){
         this.storage = {}
     }
-    throw(Pokemon){
-    }
-    isEmpty(){ 
-    }
-    contains(){
 
+    isEmpty(){ 
+        if(Object.keys(this.storage).length === 0) {
+        return true 
+    } else {
+        return false
+    } 
+}
+    
+    throw(Pokemon){ 
+        if(!Pokemon) {
+            if(this.isEmpty()) {
+                console.log('Pokeball is empty');
+            } else {
+                console.log(`GO ${Pokemon}!!`);
+                return this.storage
+            }
+        }        
+        if(this.isEmpty()) {
+            this.storage = Pokemon
+            console.log(`You caught ${Pokemon} name`)
+            return this.storage
+        }  else {
+            console.log('Pokeball is full')
+        } 
+        
+    }
+    
+    contains(){ 
+    if(this.isEmpty()) {
+        console.log('Empty')
+    } else {
+        return this.storage
+    }
+
+    }
+} 
+class Trainer {
+    constructor(belt){}
+    catch(){
+
+    }
+    getPokemon(){
+
+    
     }
 }
-
 module.exports = {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata,Pokeball}

@@ -184,5 +184,63 @@ describe('Pokemon - Normal - Rattata - moves', () => {
     test('Returns correct move for Charmander', () => {
         const ourPokemon = new Rattata('name', 100, 5, 'tackle')
         expect(ourPokemon.moves).toBe('tackle');
+    }); 
+describe('isEmpty should return boolean value', () => {
+    test('isEmpty should return boolean value', () => {
+    
+        const ourPokeball = new Pokeball()
+        expect(typeof ourPokeball.isEmpty()).toBe('boolean')
+    }) 
+    test('isEmpty should return true when storage is empty', () => {
+        const ourPokeball = new Pokeball()
+        expect(ourPokeball.isEmpty()).toBe(true)
+    })
+    test('isEmpty should return false when storage has pokemon', () => {
+        const ourPokeball = new Pokeball()
+        ourPokeball.storage[0] = 'string'
+        expect(ourPokeball.isEmpty()).toBe(false)
+    })
+    })  
+})
+    describe('add pokemon to storage if isEmpty is true', () => {
+        test('should add Pokemon to storage object when isEmpty is true', () => {
+        const ourPokeball = new Pokeball()
+        ourPokeball.throw('name')
+         expect(ourPokeball.storage).toBe('name')
+        }) 
+
+    describe('throw should add pokemon to storage if isEmpty is true', () => {
+        test('pokemon should not be added to storage if isEmpty is false', () => {
+            const ourPokeball = new Pokeball()
+            ourPokeball.storage= 'string'
+            ourPokeball.throw('string')
+         expect(ourPokeball.storage).toBe('string')
+        }) 
+    })
+    test('should return pokemon if there is no argumanet and this isEmpty is false', () => {
+        const ourPokeball = new Pokeball()
+        ourPokeball.storage= 'string'
+        ourPokeball.throw()
+     expect(ourPokeball.throw()).toBe('string')
     });
+    test('should return pokemon if there is no argumanet and this isEmpty is true', () => {
+        const ourPokeball = new Pokeball()
+        const consoleSpy = jest.spyOn(console,'log')
+        ourPokeball.throw()
+     expect(consoleSpy).toHaveBeenCalledWith('Pokeball is empty')
+    });
+    describe('conatins should log empty if isEmpty is true and pokemon name if isEmpty is false', () => {
+        test('should log empty if isEmpty is true', () => {
+            const ourPokeball = new Pokeball() 
+            const consoleSpy = jest.spyOn(console,'log') 
+            ourPokeball.contains()
+         expect(consoleSpy).toHaveBeenCalledWith('Empty')
+        }) 
+        test('should log return pokemon if isEmpty is false', () => {
+            const ourPokeball = new Pokeball() 
+            ourPokeball.contains()
+            ourPokeball.storage = 'name'
+         expect(ourPokeball.contains()).toBe('name')
+        }) 
+    })
 });

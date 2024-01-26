@@ -134,12 +134,12 @@ class Pokeball{
         if(!Pokemon) {
             if(this.isEmpty()) {
                 console.log('Pokeball is empty');
-            } else {
+            } else if (!this.isEmpty()){
                 console.log(`GO ${this.storage.name}!!`);
                 return this.storage
             }
         }        
-        if(this.isEmpty()) {
+        if(this.isEmpty() && (Pokemon)) {
             const caughtPokemon = Pokemon
             this.storage = caughtPokemon
             console.log(`You caught ${this.storage.name}`)
@@ -173,13 +173,67 @@ class Trainer {
             console.log('Belt is Full!')
         }
     }
-    getPokemon(ourPokemon){
+    getPokemon(ourPokemon){ 
+        
         for(let i = 0; i < this.belt.length; i++){
-            console.log(belt[i].name)
-            if(ourPokemon.name = this.belt[i].name){
-            belt[i].throw()
+            const pokeBelt = this.belt[i] 
+            
+            if(ourPokemon === pokeBelt.storage.name){
+            return this.belt[i].throw()
             }
-        }
+        } 
+        console.log('This pokemon is not in your belt')
     }
+    
+} 
+
+class Battle {
+    constructor() {}
+    fight (attacker, defender) {  
+        const damage = attacker.attackDamage * this.strength(attacker,defender)
+        //let gameover = false
+        defender.hitPoints -= damage
+        let effective = 'Very effective'
+        if(this.strength(attacker,defender) < 1) {
+             effective = 'Not very effective'
+             
+            console.log(`${attacker.name} hit ${defender.name} and took ${damage} it was ${effective}`)
+        } else if (this.strength(attacker,defender) === 1) {
+    
+            console.log(`${attacker.name} hit ${defender.name} and took ${damage}`)
+        } else {
+            console.log(`${attacker.name} hit ${defender.name} and took ${damage} it was ${effective}`)
+        } 
+        
+        if(defender.hitPoints <= 0) {
+            console.log(`${defender.name} has fainted`) 
+            //gameover = true
+        } else {
+            this.fight(defender,attacker) 
+            //gameover = false
+        }
+        //console.log(`${defender} has fainted`)
+
+    } 
+    strength(pokemon1, pokemon2) {
+        const pokeType = pokemon1.type 
+        const pokeType2 = pokemon2.type
+        
+        const effectiveness = {
+        'fire':{'grass': 1.25, 'water':0.75},
+        'grass':{'water': 1.25, 'fire':0.75},
+        'water':{'fire': 1.25, 'grass':0.75},
+        'normal':{'fire': 1, 'water':1, 'grass':1}
+        
+        }
+        const multiplier = effectiveness[pokeType][pokeType2] || 1
+        return multiplier
+        }
+  turn (attacker,defender) {
+   return defender.hitPoints -= this.attack.attackDamage * this.multiplier
+  }
+  
+
+    
 }
-module.exports = {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata, Pokeball, Trainer}
+module.exports = {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata, Pokeball, Trainer, Battle}

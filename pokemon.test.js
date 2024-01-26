@@ -161,7 +161,7 @@ describe('Pokemon - Water - Squirtle - moves', () => {
         const ourPokemon = new Squirtle('name', 100, 5, 'tackle')
         expect(typeof ourPokemon.moves).toBe('string');
     });
-    test('Returns correct move for Charmander', () => {
+    test('Returns correct move for Squirtle', () => {
         const ourPokemon = new Squirtle('name', 100, 5, 'tackle')
         expect(ourPokemon.moves).toBe('water gun');
     });
@@ -171,7 +171,7 @@ describe('Pokemon - Grass - Bulbasaur - moves', () => {
         const ourPokemon = new Bulbasaur('name', 100, 5, 'tackle')
         expect(typeof ourPokemon.moves).toBe('string');
     });
-    test('Returns correct move for Charmander', () => {
+    test('Returns correct move for Bulbasaur', () => {
         const ourPokemon = new Bulbasaur('name', 100, 5, 'tackle')
         expect(ourPokemon.moves).toBe('vine whip');
     });
@@ -181,11 +181,12 @@ describe('Pokemon - Normal - Rattata - moves', () => {
         const ourPokemon = new Rattata('name', 100, 5, 'tackle')
         expect(typeof ourPokemon.moves).toBe('string');
     });
-    test('Returns correct move for Charmander', () => {
+    test('Returns correct move for Rattata', () => {
         const ourPokemon = new Rattata('name', 100, 5, 'tackle')
         expect(ourPokemon.moves).toBe('tackle');
     }); 
-describe('isEmpty should return boolean value', () => {
+})
+describe('Pokeball - isEmptty', () => {
     test('isEmpty should return boolean value', () => {
     
         const ourPokeball = new Pokeball()
@@ -200,10 +201,9 @@ describe('isEmpty should return boolean value', () => {
         ourPokeball.storage[0] = 'string'
         expect(ourPokeball.isEmpty()).toBe(false)
     })
-    })  
-})
-    describe('add pokemon to storage if isEmpty is true', () => {
-        test('should add Pokemon to storage object when isEmpty is true', () => {
+})  
+describe('PokeBall - throw throw should add pokemon to storage if isEmpty is true', () => {
+    test('should add Pokemon to storage object when isEmpty is true', () => {
         const ourPokeball = new Pokeball()
         const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle')
         const consoleSpy = jest.spyOn(console,'log')
@@ -211,15 +211,12 @@ describe('isEmpty should return boolean value', () => {
          expect(ourPokeball.storage).toBe(pokemon1)
          expect(consoleSpy).toHaveBeenCalledWith('You caught Charmander')
         }) 
-
-    describe('throw should add pokemon to storage if isEmpty is true', () => {
-        test('pokemon should not be added to storage if isEmpty is false', () => {
+    test('pokemon should not be added to storage if isEmpty is false', () => {
             const ourPokeball = new Pokeball()
             ourPokeball.storage= 'string'
             ourPokeball.throw('string')
          expect(ourPokeball.storage).toBe('string')
         }) 
-    })
     test('should return pokemon if there is no argumanet and this isEmpty is false', () => {
         const ourPokeball = new Pokeball()
         const consoleSpy = jest.spyOn(console,'log')
@@ -235,7 +232,8 @@ describe('isEmpty should return boolean value', () => {
         ourPokeball.throw()
      expect(consoleSpy).toHaveBeenCalledWith('Pokeball is empty')
     });
-    describe('conatins should log empty if isEmpty is true and pokemon name if isEmpty is false', () => {
+});
+describe('Pokeball - contains - conatins should log empty if isEmpty is true and pokemon name if isEmpty is false', () => {
         test('should log empty if isEmpty is true', () => {
             const ourPokeball = new Pokeball() 
             const consoleSpy = jest.spyOn(console,'log') 
@@ -248,8 +246,7 @@ describe('isEmpty should return boolean value', () => {
             ourPokeball.storage = 'name'
          expect(ourPokeball.contains()).toBe('name')
         }) 
-    })
-});
+})
 describe('Trainer - Catch', () => {
     test('Should return array when no pokeballs inside', () => {
         const ourTrainer = new Trainer()

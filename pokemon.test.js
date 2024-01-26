@@ -325,7 +325,7 @@ describe('Trainer - getPokemon', () => {
         expect(consoleSpy).toHaveBeenCalledWith('This pokemon is not in your belt')
     }); 
 });
-    describe('should multiply attack damage depending on pokemons strength', () => {
+describe('Battle - effectiveness - should multiply attack damage depending on pokemons strength', () => {
        test('should multiply fire pokemon damage by 1.25 against grass pokemon', () => {
         const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
         const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
@@ -355,72 +355,71 @@ test('should not multiply normal pokemon damage against any pokemon', () => {
     
     expect(ourBattle.strength(pokemon2,pokemon1)).toEqual(1)
 }) })
-describe('Should fight pokemon', () => {
-    
-test('should remove attacker attack damage from defender HP', () => {
-    const consoleSpy1 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Ratata', 10, 5,'tackle','normal')
-    const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy1).toHaveBeenCalledWith('Ratata hit Squirtle and took 5')
-}) 
-test('should remove attacker attack damage from defender HP', () => {
-    const consoleSpy2 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass')
-    const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy2).toHaveBeenCalledWith('Bulbasaur hit Squirtle and took 6.25 it was Very effective')
-}) 
-test('should remove attacker attack damage from defender HP', () => {
-    const consoleSpy3 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
-    const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy3).toHaveBeenCalledWith('Charmander hit Squirtle and took 3.75 it was Not very effective')
-}) 
-test('should remove attacker attack damage from defender HP', () => {
-    const consoleSpy4 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
-    const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy4).toHaveBeenCalledWith('Charmander hit Bulbasaur and took 6.25 it was Very effective')
-})  
-test('should remove attacker attack damage from defender HP', () => {
-    const consoleSpy4 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
-    const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy4).toHaveBeenCalledWith('Charmander hit Bulbasaur and took 6.25 it was Very effective')
-})  
-test('should log has fainted if defender HP less than or = 0', () => {
-    const consoleSpy4 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 10, 10,'tackle','fire')
-    const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy4).toHaveBeenCalledWith('Bulbasaur has fainted')
-})  
-test.only('fight should keep going until defender faints', () => {
-    const consoleSpy4 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 20, 10,'tackle','fire')
-    const pokemon2 = new Pokemon('Bulbasaur', 20, 5,'tackle','grass') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy4).toHaveBeenCalledWith('Bulbasaur has fainted')
-})  
-test.only('fight should keep going until attacker faints', () => {
-    const consoleSpy4 = jest.spyOn(console,'log')
-    const pokemon1 = new Pokemon('Charmander', 20, 10,'tackle','fire')
-    const pokemon2 = new Pokemon('Bulbasaur', 200, 5,'tackle','grass') 
-    const ourBattle = new Battle() 
-    ourBattle.fight(pokemon1,pokemon2)
-    expect(consoleSpy4).toHaveBeenCalledWith('Charmander has fainted')
-})  
+describe('Battle - Fight - Should fight pokemon', () => {
+    test('should remove attacker attack damage from defender HP', () => {
+        const consoleSpy1 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Ratata', 10, 5,'tackle','normal')
+        const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy1).toHaveBeenCalledWith('Ratata hit Squirtle and took 5')
+    }) 
+    test('should remove attacker attack damage from defender HP', () => {
+        const consoleSpy2 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass')
+        const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy2).toHaveBeenCalledWith('Bulbasaur hit Squirtle and took 6.25 it was Very effective')
+    }) 
+    test('should remove attacker attack damage from defender HP', () => {
+        const consoleSpy3 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
+        const pokemon2 = new Pokemon('Squirtle', 10, 5,'tackle','water') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy3).toHaveBeenCalledWith('Charmander hit Squirtle and took 3.75 it was Not very effective')
+    }) 
+    test('should remove attacker attack damage from defender HP', () => {
+        const consoleSpy4 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
+        const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy4).toHaveBeenCalledWith('Charmander hit Bulbasaur and took 6.25 it was Very effective')
+    })  
+    test('should remove attacker attack damage from defender HP', () => {
+        const consoleSpy4 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
+        const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy4).toHaveBeenCalledWith('Charmander hit Bulbasaur and took 6.25 it was Very effective')
+    })  
+    test('should log has fainted if defender HP less than or = 0', () => {
+        const consoleSpy4 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 10, 10,'tackle','fire')
+        const pokemon2 = new Pokemon('Bulbasaur', 10, 5,'tackle','grass') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy4).toHaveBeenCalledWith('Bulbasaur has fainted')
+    })  
+    test('fight should keep going until defender faints', () => {
+        const consoleSpy4 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 20, 10,'tackle','fire')
+        const pokemon2 = new Pokemon('Bulbasaur', 20, 5,'tackle','grass') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy4).toHaveBeenCalledWith('Bulbasaur has fainted')
+    })  
+    test('fight should keep going until attacker faints', () => {
+        const consoleSpy4 = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 20, 10,'tackle','fire')
+        const pokemon2 = new Pokemon('Bulbasaur', 200, 5,'tackle','grass') 
+        const ourBattle = new Battle() 
+        ourBattle.fight(pokemon1,pokemon2)
+        expect(consoleSpy4).toHaveBeenCalledWith('Charmander has fainted')
+    })  
 
 })
     

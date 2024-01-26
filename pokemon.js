@@ -135,13 +135,14 @@ class Pokeball{
             if(this.isEmpty()) {
                 console.log('Pokeball is empty');
             } else {
-                console.log(`GO ${Pokemon}!!`);
+                console.log(`GO ${this.storage.name}!!`);
                 return this.storage
             }
         }        
         if(this.isEmpty()) {
-            this.storage = Pokemon
-            console.log(`You caught ${Pokemon} name`)
+            const caughtPokemon = Pokemon
+            this.storage = caughtPokemon
+            console.log(`You caught ${this.storage.name}`)
             return this.storage
         }  else {
             console.log('Pokeball is full')
@@ -158,14 +159,27 @@ class Pokeball{
 
     }
 } 
+
 class Trainer {
-    constructor(belt){}
-    catch(){
-
+    constructor(){
+        this.belt = []
     }
-    getPokemon(){
-
-    
+    catch(Pokemon){
+        if (this.belt.length < 6){
+            const newPokeball = new Pokeball()
+            newPokeball.throw(Pokemon)
+            this.belt.push(newPokeball)
+        }else if(this.belt.length === 6){
+            console.log('Belt is Full!')
+        }
+    }
+    getPokemon(ourPokemon){
+        for(let i = 0; i < this.belt.length; i++){
+            console.log(belt[i].name)
+            if(ourPokemon.name = this.belt[i].name){
+            belt[i].throw()
+            }
+        }
     }
 }
-module.exports = {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata,Pokeball}
+module.exports = {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata, Pokeball, Trainer}

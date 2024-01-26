@@ -1,4 +1,4 @@
-const {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata, Pokeball} = require('./pokemon');
+const {Pokemon, Fire, Grass, Water, Normal, Charmander, Squirtle, Bulbasaur, Rattata, Pokeball, Trainer} = require('./pokemon');
 
 describe('Pokemon - variables', () => {
     test('Name variable should return a string', () => {
@@ -205,8 +205,11 @@ describe('isEmpty should return boolean value', () => {
     describe('add pokemon to storage if isEmpty is true', () => {
         test('should add Pokemon to storage object when isEmpty is true', () => {
         const ourPokeball = new Pokeball()
-        ourPokeball.throw('name')
-         expect(ourPokeball.storage).toBe('name')
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle')
+        const consoleSpy = jest.spyOn(console,'log')
+        ourPokeball.throw(pokemon1)
+         expect(ourPokeball.storage).toBe(pokemon1)
+         expect(consoleSpy).toHaveBeenCalledWith('You caught Charmander')
         }) 
 
     describe('throw should add pokemon to storage if isEmpty is true', () => {
@@ -219,9 +222,12 @@ describe('isEmpty should return boolean value', () => {
     })
     test('should return pokemon if there is no argumanet and this isEmpty is false', () => {
         const ourPokeball = new Pokeball()
-        ourPokeball.storage= 'string'
-        ourPokeball.throw()
-     expect(ourPokeball.throw()).toBe('string')
+        const consoleSpy = jest.spyOn(console,'log')
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
+        ourPokeball.storage = pokemon1
+     expect(ourPokeball.throw()).toBe(pokemon1)
+     expect(consoleSpy).toHaveBeenCalledWith(`GO Charmander!!`)
+
     });
     test('should return pokemon if there is no argumanet and this isEmpty is true', () => {
         const ourPokeball = new Pokeball()
@@ -243,4 +249,62 @@ describe('isEmpty should return boolean value', () => {
          expect(ourPokeball.contains()).toBe('name')
         }) 
     })
+});
+describe('Trainer - Catch', () => {
+    test('Should return array when no pokeballs inside', () => {
+        const ourTrainer = new Trainer()
+        expect(ourTrainer.belt).toEqual([]);
+    });
+    test('should return an array', () => {
+        const ourTrainer = new Trainer()
+        expect(typeof ourTrainer.belt).toEqual('object');
+    });
+    test('Should return Caught pokemon in Pokeball storage', () => {
+        const ourTrainer = new Trainer()
+        const pokemon1 = new Pokemon('Charmander')
+        ourTrainer.catch(pokemon1)
+        expect(ourTrainer.belt).toEqual([{'storage':pokemon1}])
+    });
+    test('Should return Full Pokeball to belt', () => {
+        const ourTrainer = new Trainer()
+        const pokemon1 = new Pokemon('Charmander')
+        ourTrainer.catch(pokemon1)
+        expect(ourTrainer.belt[0]).toEqual({'storage':pokemon1})
+    });
+    test('Should return Belt when 2 pokemon are caught', () => {
+        const ourTrainer = new Trainer()
+        const pokemon1 = new Pokemon('Charmander')
+        const pokemon2 = new Pokemon('Bulbasaur')
+        const pokemon3 = new Pokemon('Squirtle')
+        ourTrainer.catch(pokemon1)
+        ourTrainer.catch(pokemon2)
+        expect(ourTrainer.belt).toEqual([{'storage':pokemon1},{'storage':pokemon2}])
+        expect(ourTrainer.belt.length).toEqual(2)
+    });
+    test('Should return belt is full when 6 pokemon are in the belt', () => {
+        const ourTrainer = new Trainer()
+        const pokemon1 = new Pokemon('Charmander')
+        const pokemon2 = new Pokemon('Bulbasaur')
+        const pokemon3 = new Pokemon('Squirtle')
+        const pokemon4 = new Pokemon('Charmander')
+        const pokemon5 = new Pokemon('Bulbasaur')
+        const pokemon6 = new Pokemon('Squirtle')
+        const pokemon7 = new Pokemon('Squirtle')
+        ourTrainer.catch(pokemon1)
+        ourTrainer.catch(pokemon2)
+        ourTrainer.catch(pokemon3)
+        ourTrainer.catch(pokemon4)
+        ourTrainer.catch(pokemon5)
+        ourTrainer.catch(pokemon6)
+        ourTrainer.catch(pokemon7)
+        expect(ourTrainer.belt).toEqual([{'storage':pokemon1},{'storage':pokemon2},{'storage':pokemon3},{'storage':pokemon4},{'storage':pokemon5},{'storage':pokemon6}]);
+    });
+});
+xdescribe('Trainer - getPokemon', () => {
+    test('Should return an object', () => {
+        const ourTrainer = new Trainer()
+        const pokemon1 = new Pokemon('Charmander', 10, 5,'tackle','fire')
+        ourTrainer.catch(pokemon1)
+        expect(ourTrainer.getPokemon(pokemon1)).toEqual(pokemon1);
+    });
 });
